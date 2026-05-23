@@ -2,8 +2,8 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("getting notes");
+router.get("/", async (req, res) => {
+  res.json("getting all notes");
 });
 
 router.get("/:id", (req, res) => {
