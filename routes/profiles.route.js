@@ -2,7 +2,11 @@ import express from "express";
 
 import ProfileService from "../services/profiles.service.js";
 
-import { getAllProfilesController } from "../controllers/profiles.controller.js";
+import {
+  getAllProfilesController,
+  UpdateProfileController,
+} from "../controllers/profiles.controller.js";
+import authenticateToken from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -34,5 +38,7 @@ router.post("/", (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+router.put("/", authenticateToken, UpdateProfileController);
 
 export default router;
