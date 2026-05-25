@@ -1,9 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
-import config from "./config.js";
+import envConfig from "./env.config.js";
 
 const supabase = createClient(
-  config.supabaseUrl,
-  config.supabaseServiceRoleKey,
+  envConfig.supabaseUrl,
+  envConfig.supabaseServiceRoleKey,
 );
 
 export default supabase;
