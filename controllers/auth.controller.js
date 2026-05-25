@@ -1,7 +1,7 @@
 import { json } from "express";
 import AuthService from "../services/auth.service.js";
 import ProfileService from "../services/profiles.service.js";
-import supabase from "../config/supabase.config.js";
+import supabase from "../config/supabaseAdmin.config.js";
 const authService = new AuthService();
 const profileService = new ProfileService();
 
@@ -78,5 +78,24 @@ export const loginUserController = async (req, res) => {
     res.status(201).json(data);
   } catch (error) {
     res.status(401).json({ error: error.message });
+  }
+};
+
+export const logoutUserWithProfileController = async (req, res) => {};
+
+export const deleteUserController = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const deletedUser = await authService.deleteUser(userId);
+    // user profile will be automatically deleted by supabase auth trigger, so we don't need to delete it manually
+
+    const data = {
+      message: "User and profile deleted successfully",
+      user: deletedUser,
+    };
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

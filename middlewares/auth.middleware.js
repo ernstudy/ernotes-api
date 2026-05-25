@@ -1,4 +1,4 @@
-import supabase from "../config/supabase.config.js";
+import supabase from "../config/supabaseAdmin.config.js";
 
 const authenticateToken = async (req, res, next) => {
   const accessToken = req.headers.authorization?.split(" ")[1];
