@@ -12,9 +12,7 @@ router.get("/:id", notesController.getUserNoteById);
 
 router.post("/", notesController.createUserNote);
 
-router.put("/:id", (req, res) => {
-  res.send(`updating note with ID: ${req.params.id}`);
-});
+router.put("/:id", notesController.updateUserNote);
 
 router.delete("/:id", (req, res) => {
   res.send(`deleting note with ID: ${req.params.id}`);

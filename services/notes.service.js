@@ -60,6 +60,7 @@ class NotesService {
       throw new Error(error.message);
     }
 
+    console.log("Updated note:", data);
     return data;
   }
 
