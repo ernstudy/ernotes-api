@@ -105,6 +105,34 @@ class NotesService {
 
     return data;
   }
+
+  async addToFavorites(noteId, userId, toFavorite) {
+    const { data, error } = await supabase
+      .from("notes")
+      .update(toFavorite)
+      .eq("id", noteId)
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  }
+
+  async removeFromFavorites(noteId, userId, toUnfavorite) {
+    const { data, error } = await supabase
+      .from("notes")
+      .update(toUnfavorite)
+      .eq("id", noteId)
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  }
 }
 
 export default NotesService;

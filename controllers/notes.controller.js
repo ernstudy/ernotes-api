@@ -119,6 +119,54 @@ class NoteController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async addToFavorites(req, res) {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+    const toFavorite = {
+      is_favorite: true,
+      updated_at: new Date().toISOString(),
+    };
+
+    try {
+      const favoritedNote = await notesService.addToFavorites(
+        noteId,
+        userId,
+        toFavorite,
+      );
+      const data = {
+        message: "Note added to favorites successfully",
+        favoritedNote,
+      };
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async removeFromFavorites(req, res) {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+    const toUnfavorite = {
+      is_favorite: false,
+      updated_at: new Date().toISOString(),
+    };
+
+    try {
+      const unfavoritedNote = await notesService.removeFromFavorites(
+        noteId,
+        userId,
+        toUnfavorite,
+      );
+      const data = {
+        message: "Note removed from favorites successfully",
+        unfavoritedNote,
+      };
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default NoteController;

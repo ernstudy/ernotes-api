@@ -19,4 +19,8 @@ router.patch("/:id/trash", notesController.moveNoteToTrash);
 
 router.patch("/:id/untrash", notesController.removeNoteFromTrash);
 
+router.patch("/:id/favorite", notesController.addToFavorites);
+
+router.patch("/:id/unfavorite", notesController.removeFromFavorites);
+
 export default router;
