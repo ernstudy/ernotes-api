@@ -68,12 +68,15 @@ class NoteController {
     }
   }
 
-  async deleteUserNote(req, res) {
+  async deleteNotePermanently(req, res) {
     const userId = req.user.id;
     const noteId = req.params.id;
 
     try {
-      const deletedNote = await notesService.deleteNote(noteId, userId);
+      const deletedNote = await notesService.deleteNotePermanently(
+        noteId,
+        userId,
+      );
       const data = { message: "Note deleted successfully", deletedNote };
       res.json(data);
     } catch (error) {

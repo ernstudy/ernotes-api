@@ -33,4 +33,9 @@ export const UpdateProfileController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
+  deleteProfileController = async (req, res) => {
+    // profile will be deleted when the user is deleted, so this method can be used to perform any additional cleanup if necessary
+    return;
+  };
 };

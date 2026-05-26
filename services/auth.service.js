@@ -1,9 +1,5 @@
 import supabaseAdmin from "../config/supabaseAdmin.config.js";
 class AuthService {
-  constructor() {
-    [];
-  }
-
   async registerUser(email, password) {
     const { data, error } = await supabaseAdmin.auth.signUp({
       email,

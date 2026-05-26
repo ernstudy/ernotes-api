@@ -88,7 +88,9 @@ export const deleteUserController = async (req, res) => {
 
   try {
     const deletedUser = await authService.deleteUser(userId);
+
     // user profile will be automatically deleted by supabase auth trigger, so we don't need to delete it manually
+    // await profileService.delete
 
     const data = {
       message: "User and profile deleted successfully",

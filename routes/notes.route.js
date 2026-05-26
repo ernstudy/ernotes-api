@@ -13,7 +13,7 @@ router.post("/", notesController.createUserNote);
 
 router.put("/:id", notesController.updateUserNote);
 
-router.delete("/:id", notesController.deleteUserNote);
+router.delete("/:id", notesController.deleteNotePermanently);
 
 router.patch("/:id/trash", notesController.moveNoteToTrash);
 

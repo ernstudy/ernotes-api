@@ -44,10 +44,7 @@ class ProfileService {
   }
 
   async delete(userId) {
-    const { error } = await supabase.from("profiles").delete().eq("id", userId);
-
-    if (error) throw error;
-
+    //  profile will be deleted when the user is deleted, so this method can be used to perform any additional cleanup if necessary
     return true;
   }
 }

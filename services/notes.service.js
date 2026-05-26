@@ -60,11 +60,10 @@ class NotesService {
       throw new Error(error.message);
     }
 
-    console.log("Updated note:", data);
     return data;
   }
 
-  async deleteNote(noteId, userId) {
+  async deleteNotePermanently(noteId, userId) {
     const { data, error } = await supabase
       .from("notes")
       .delete()
