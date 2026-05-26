@@ -98,6 +98,27 @@ class NoteController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async removeNoteFromTrash(req, res) {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+    const toUntrash = { is_archived: false, deleted_at: null };
+
+    try {
+      const untrashedNote = await notesService.removeNoteFromTrash(
+        noteId,
+        userId,
+        toUntrash,
+      );
+      const data = {
+        message: "Note removed from trash successfully",
+        untrashedNote,
+      };
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default NoteController;

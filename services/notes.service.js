@@ -91,6 +91,20 @@ class NotesService {
 
     return data;
   }
+
+  async removeNoteFromTrash(noteId, userId, toUntrash) {
+    const { data, error } = await supabase
+      .from("notes")
+      .update(toUntrash)
+      .eq("id", noteId)
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  }
 }
 
 export default NotesService;

@@ -17,4 +17,6 @@ router.delete("/:id", notesController.deleteUserNote);
 
 router.patch("/:id/trash", notesController.moveNoteToTrash);
 
+router.patch("/:id/untrash", notesController.removeNoteFromTrash);
+
 export default router;
