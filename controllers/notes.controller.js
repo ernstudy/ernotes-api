@@ -67,6 +67,19 @@ class NoteController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteUserNote(req, res) {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+
+    try {
+      const deletedNote = await notesService.deleteNote(noteId, userId);
+      const data = { message: "Note deleted successfully", deletedNote };
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default NoteController;

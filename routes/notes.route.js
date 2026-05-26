@@ -1,6 +1,5 @@
 import express from "express";
 import NotesController from "../controllers/notes.controller.js";
-import NoteController from "../controllers/notes.controller.js";
 
 const notesController = new NotesController();
 
@@ -14,8 +13,6 @@ router.post("/", notesController.createUserNote);
 
 router.put("/:id", notesController.updateUserNote);
 
-router.delete("/:id", (req, res) => {
-  res.send(`deleting note with ID: ${req.params.id}`);
-});
+router.delete("/:id", notesController.deleteUserNote);
 
 export default router;
