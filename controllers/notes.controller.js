@@ -80,6 +80,24 @@ class NoteController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async moveNoteToTrash(req, res) {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+    const toTrash = { is_archived: true, deleted_at: new Date().toISOString() };
+
+    try {
+      const trashedNote = await notesService.moveNoteToTrash(
+        noteId,
+        userId,
+        toTrash,
+      );
+      const data = { message: "Note moved to trash successfully", trashedNote };
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default NoteController;

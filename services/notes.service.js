@@ -77,6 +77,20 @@ class NotesService {
 
     return data;
   }
+
+  async moveNoteToTrash(noteId, userId, toTrash) {
+    const { data, error } = await supabase
+      .from("notes")
+      .update(toTrash)
+      .eq("id", noteId)
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  }
 }
 
 export default NotesService;
