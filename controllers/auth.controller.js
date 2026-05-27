@@ -81,7 +81,19 @@ export const loginUserController = async (req, res) => {
   }
 };
 
-export const logoutUserWithProfileController = async (req, res) => {};
+export const logoutUserWithProfileController = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    await authService.logoutUser(userId);
+    const data = {
+      message: "User logged out successfully",
+    };
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 export const deleteUserController = async (req, res) => {
   const userId = req.user.id;

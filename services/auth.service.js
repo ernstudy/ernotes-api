@@ -26,8 +26,8 @@ class AuthService {
     return data;
   }
 
-  async logoutUser() {
-    const { error } = await supabaseAdmin.auth.signOut();
+  async logoutUser(userId) {
+    const { error } = await supabaseAdmin.auth.signOut(userId);
 
     if (error) {
       throw new Error(error.message);
