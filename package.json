@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "build": "echo \"No build step required\"",
+    "postinstall": "echo \"Install complete\""
   },
   "keywords": [],
   "author": "",
