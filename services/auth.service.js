@@ -14,10 +14,12 @@ class AuthService {
   }
 
   async loginUser(email, password) {
-    const { data, error } = await supabaseAdmin.auth.signInWithPassword({
+    const loginData = {
       email,
       password,
-    });
+    };
+    const { data, error } =
+      await supabaseAdmin.auth.signInWithPassword(loginData);
 
     if (error) {
       throw new Error(error.message);

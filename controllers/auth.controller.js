@@ -40,18 +40,45 @@ const createProfile = async (userId, name) => {
   }
 };
 
+const loginUserAfterRegister = async (email, password) => {
+  try {
+    const loggedUserData = await authService.loginUser(email, password);
+
+    const accessToken = loggedUserData.session.access_token;
+    const user = loggedUserData.user;
+
+    // Retrieve the user's profile using the user ID
+    const profile = await profileService.findOne(user.id);
+
+    const data = {
+      message: "user has logged succefull!",
+      profile,
+      user,
+      accessToken,
+    };
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const createUserWithProfileController = async (req, res) => {
   const { email, password, name } = req.body;
 
   try {
+    // First, create the user in Supabase Auth
     const data = await createUser(email, password);
-    const userID = data.user.id;
+    const userID = await data.user.id;
 
-    const newProfileData = await createProfile(userID, name);
+    // Then, create the user's profile in the "profiles" table using the user ID
+    await createProfile(userID, name);
 
-    res.status(201).json(newProfileData);
+    // Log the user in immediately after registration
+    const loginData = await loginUserAfterRegister(email, password);
+
+    res.status(201).json(loginData);
   } catch (error) {
-    console.error("Error registering user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -61,19 +88,19 @@ export const loginUserController = async (req, res) => {
 
   try {
     const loggedUserData = await authService.loginUser(email, password);
-    const loggedUser = loggedUserData.user;
+
+    const accessToken = loggedUserData.session.access_token;
+    const user = loggedUserData.user;
+
+    // Retrieve the user's profile using the user ID
+    const profile = await profileService.findOne(user.id);
 
     const data = {
       message: "user has logged succefull!",
-      loggedUser,
+      profile,
+      user,
+      accessToken,
     };
-
-    console.log("access token:", loggedUserData.session.access_token);
-    console.log("autorization", loggedUser.aud);
-    const user = await supabase.auth.getUser(
-      loggedUserData.session.access_token,
-    );
-    console.log("user logged in", user);
 
     res.status(201).json(data);
   } catch (error) {
