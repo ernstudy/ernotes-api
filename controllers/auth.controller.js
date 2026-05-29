@@ -51,10 +51,14 @@ const loginUserAfterRegister = async (email, password) => {
     const profile = await profileService.findOne(user.id);
 
     const data = {
-      message: "user has logged succefull!",
-      profile,
-      user,
-      accessToken,
+      message: "You have logged succefull!",
+      user: {
+        id: user.id,
+        name: profile[0].name,
+        email: user.email,
+        isAuthenticated: user.aud == "authenticated",
+        accessToken,
+      },
     };
 
     return data;
@@ -96,10 +100,14 @@ export const loginUserController = async (req, res) => {
     const profile = await profileService.findOne(user.id);
 
     const data = {
-      message: "user has logged succefull!",
-      profile,
-      user,
-      accessToken,
+      message: "You have logged succefull!",
+      user: {
+        id: user.id,
+        name: profile[0].name,
+        email: user.email,
+        isAuthenticated: user.aud == "authenticated",
+        accessToken,
+      },
     };
 
     res.status(201).json(data);
