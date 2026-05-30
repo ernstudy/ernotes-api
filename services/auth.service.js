@@ -45,6 +45,14 @@ class AuthService {
     }
     return data;
   }
+
+  async findUserById(userId) {
+    const { data, error } = await supabaseAdmin.auth.admin.getUserById(userId);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  }
 }
 
 export default AuthService;

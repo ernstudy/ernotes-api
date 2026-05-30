@@ -103,7 +103,7 @@ export const loginUserController = async (req, res) => {
       message: "You have logged succefull!",
       user: {
         id: user.id,
-        name: profile[0].name,
+        name: profile.name,
         email: user.email,
         isAuthenticated: user.aud == "authenticated",
         accessToken,

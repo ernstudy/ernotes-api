@@ -11,7 +11,8 @@ class ProfileService {
     const { data, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", userId);
+      .eq("id", userId)
+      .single();
 
     if (error) throw error;
 

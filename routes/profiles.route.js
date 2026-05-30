@@ -3,6 +3,7 @@ import express from "express";
 import ProfileService from "../services/profiles.service.js";
 
 import {
+  findUserProfileController,
   getAllProfilesController,
   UpdateProfileController,
 } from "../controllers/profiles.controller.js";
@@ -14,15 +15,15 @@ const service = new ProfileService();
 
 router.get("/", getAllProfilesController);
 
-router.get("/:id", async (req, res) => {
-  const userId = req.params.id;
-  const user = await service.findOne(userId);
-  const data = {
-    message: "User retrieved successfully",
-    user: user,
-  };
-  res.json(data);
-});
+// router.get("/:id", async (req, res) => {
+//   const userId = req.params.id;
+//   const user = await service.findOne(userId);
+//   const data = {
+//     message: "User retrieved successfully",
+//     user: user,
+//   };
+//   res.json(data);
+// });
 
 router.post("/", (req, res) => {
   try {
@@ -39,6 +40,10 @@ router.post("/", (req, res) => {
   }
 });
 
+// update profile data
 router.put("/", authenticateToken, UpdateProfileController);
+
+// get user and profile data
+router.get("/me", authenticateToken, findUserProfileController);
 
 export default router;
